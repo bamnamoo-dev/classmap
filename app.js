@@ -1359,6 +1359,8 @@ elements.importInput.addEventListener('change', (e) => {
         try {
             const importedState = JSON.parse(event.target.result);
             if (importedState && importedState.buildings) {
+                if (!importedState.rooms) importedState.rooms = {};
+                if (!importedState.selectedRooms) importedState.selectedRooms = [];
                 state = importedState;
                 saveState();
                 renderAll();
