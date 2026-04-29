@@ -629,7 +629,11 @@ function closeModal(overlay) {
 
 document.querySelectorAll('.close-modal').forEach(btn => {
     btn.addEventListener('click', (e) => {
-        closeModal(e.target.closest('.modal-overlay'));
+        const overlay = e.target.closest('.modal-overlay');
+        closeModal(overlay);
+        if (overlay === elements.roomModalOverlay && state.selectedRooms && state.selectedRooms.length > 0) {
+            updateBatchUI();
+        }
     });
 });
 
@@ -1195,6 +1199,27 @@ function applyZoom() {
     elements.canvasGrid.style.transform = `translate(${panX}px, ${panY}px) scale(${currentZoom})`;
     elements.zoomLevel.textContent = `${Math.round(currentZoom * 100)}%`;
 }
+
+// Batch Actions
+elements.editBatchBtn.addEventListener('click', () => {
+    if (state.selectedRooms.length === 0) return;
+    elements.batchActionBar.style.display = 'none';
+    openRoomModal(null);
+});
+
+elements.cancelBatchBtn.addEventListener('click', () => {
+    state.selectedRooms = [];
+    updateBatchUI();
+    renderAll();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && state.selectedRooms.length > 0 && !elements.roomModalOverlay.classList.contains('active')) {
+        state.selectedRooms = [];
+        updateBatchUI();
+        renderAll();
+    }
+});
 
 elements.zoomInBtn.addEventListener('click', () => {
     if (currentZoom < 2) {
