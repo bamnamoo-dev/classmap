@@ -402,9 +402,11 @@ function getRoomHtml(roomId, physicalCode) {
         const isNarrowClass = span < 1 ? 'narrow' : '';
         const mergeClass = roomData.mergedDown ? 'merged-down' : (roomData.mergedUp ? 'merged-up' : '');
         
+        const displayUsage = (roomData.usage || '').replace(/\n/g, '<br>');
+        
         html += `
             <div class="map-room ${isBlankClass} ${isSelectedClass} ${isNarrowClass} ${mergeClass}" data-id="${roomId}" style="background-color: ${roomData.color}; width: ${width}px;">
-                <div class="room-usage">${roomData.usage}</div>
+                <div class="room-usage">${displayUsage}</div>
                 <div class="room-code">${physicalCode}</div>
             </div>
         `;
@@ -836,7 +838,7 @@ elements.saveRoomBtn.addEventListener('click', () => {
 });
 
 elements.roomUsageInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         elements.saveRoomBtn.click();
     }
