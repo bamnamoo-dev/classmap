@@ -46,29 +46,8 @@
                     <input type="file" id="importInput" accept=".json" style="display: none;">
                     <button id="clearDataBtn" class="btn btn-danger w-100 mt-2"><ion-icon
                             name="trash-outline"></ion-icon> 전체 초기화</button>
-                </div>
-                
-                <hr class="divider">
-                
-                <!-- 사용 설명서 -->
-                <div class="manual-section" style="margin-top: 1rem; padding: 1rem; background-color: var(--secondary); border-radius: var(--radius-md); font-size: 0.85rem; color: var(--text-muted); overflow-y: auto; max-height: 280px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
-                    <h4 style="color: var(--text-main); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 4px; font-size: 0.95rem;">
-                        <ion-icon name="information-circle-outline"></ion-icon> 프로그램 사용 설명서
-                    </h4>
-                    
-                    <p style="font-weight: 600; margin-top: 0; color: var(--text-main);">📌 일반적인 사용 방법</p>
-                    <ul style="padding-left: 1.2rem; margin-bottom: 1rem; line-height: 1.4;">
-                        <li style="margin-bottom: 0.25rem;"><strong>건물 구성:</strong> '건물 추가' 버튼으로 건물을 생성하고 층수/교실수를 설정합니다.</li>
-                        <li style="margin-bottom: 0.25rem;"><strong>교실 편집:</strong> 빈 교실을 클릭해 학급명이나 용도(예: 음악실) 및 색상을 입력합니다.</li>
-                        <li style="margin-bottom: 0.25rem;"><strong>다중 선택:</strong> Shift 키를 누르고 여러 교실을 클릭하면 '일괄 수정'이 가능합니다.</li>
-                        <li><strong>저장/출력:</strong> 작업 중인 배치도는 브라우저에 자동 저장되며, 우측 상단 인쇄 버튼으로 출력할 수 있습니다.</li>
-                    </ul>
-
-                    <p style="font-weight: 600; margin-top: 1rem; color: var(--text-main);">📌 교실 고정 좌표를 만든 이유</p>
-                    <p style="margin-bottom: 1rem; line-height: 1.4;">건물의 물리적 구조(층, 호수)를 고유한 고정 좌표로 부여했습니다. 매년 학년별 교실 위치나 특별실 용도가 바뀌더라도, 건물의 뼈대(좌표)가 고정되어 있어 데이터가 꼬이지 않고 안정적인 유지보수 및 새 학년도 업데이트가 가능해집니다.</p>
-
-                    <p style="font-weight: 600; margin-top: 1rem; color: var(--text-main);">📌 교실을 병합(병기)하는 이유</p>
-                    <p style="margin-bottom: 0; line-height: 1.4;">강당이나 체육관, 큰 교무실 등은 일반 교실 2~3개 크기의 넓은 면적을 차지합니다. 기본 단위인 '1개 교실' 크기를 여러 개 합쳐서 직관적으로 실제 학교 도면 비율과 유사하게 넓은 공간을 표현하기 위함입니다.</p>
+                    <button id="manualBtn" class="btn btn-secondary w-100 mt-2" style="color: var(--primary); border-color: var(--primary);"><ion-icon
+                            name="information-circle-outline"></ion-icon> 프로그램 사용 설명서</button>
                 </div>
             </div>
         </aside>
@@ -116,6 +95,34 @@
     </div>
 
     <!-- Modals -->
+
+    <!-- Manual Modal -->
+    <div class="modal-overlay" id="manualModalOverlay">
+        <div class="modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2><ion-icon name="information-circle-outline"></ion-icon> 프로그램 사용 설명서</h2>
+                <button class="btn btn-icon close-modal"><ion-icon name="close-outline"></ion-icon></button>
+            </div>
+            <div class="modal-body" style="line-height: 1.6; color: var(--text-main);">
+                <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary);">📌 일반적인 사용 방법</h4>
+                <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem;">
+                    <li style="margin-bottom: 0.5rem;"><strong>건물 구성:</strong> 좌측 패널의 '건물 추가' 버튼으로 건물을 생성하고 해당 건물의 층수와 층당 교실 수를 설정합니다.</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>교실 편집:</strong> 캔버스 영역에 생성된 빈 교실을 클릭하여 학급명이나 용도(예: 1-1, 음악실, 교장실) 및 배경 색상을 자유롭게 입력합니다.</li>
+                    <li style="margin-bottom: 0.5rem;"><strong>다중 선택 및 일괄 수정:</strong> Shift 키를 누른 상태로 여러 교실을 클릭하면 다중 선택 모드가 활성화됩니다. 우측 상단 '일괄 수정' 버튼을 눌러 여러 교실의 색상이나 용도를 한 번에 변경할 수 있습니다.</li>
+                    <li><strong>저장 및 출력:</strong> 작업 중인 모든 배치도 정보는 브라우저에 자동 저장됩니다. 우측 상단의 인쇄 버튼을 눌러 전체 학교 배치도를 출력하거나 개별 건물 헤더의 인쇄 버튼으로 특정 건물만 출력할 수 있습니다. 데이터 백업이 필요하다면 '배치도 내보내기'를 사용하세요.</li>
+                </ul>
+
+                <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary);">📌 교실 고정 좌표를 만든 이유</h4>
+                <p style="margin-bottom: 1.5rem; color: var(--text-muted);">건물의 물리적인 구조(층, 호수)를 기준으로 고유한 고정 좌표(예: 본관 1층 1호)를 먼저 부여하도록 설계했습니다. 매 학년도가 바뀔 때마다 교실의 실제 용도(예: 1학년 1반이 다음 해에 2학년 3반이 되는 경우)나 특별실 위치가 빈번하게 바뀌더라도, <strong>건물 자체의 뼈대(고정 좌표)가 흔들리지 않아 데이터가 꼬이는 것을 방지</strong>하고 안정적인 유지보수 및 새 학년도 업데이트가 가능해집니다.</p>
+
+                <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary);">📌 교실을 병합(병기)하는 이유</h4>
+                <p style="margin-bottom: 0; color: var(--text-muted);">학교 내 강당이나 체육관, 대형 교무실, 특별 활동실 등은 보통 일반 교실 2~3개 이상의 넓은 면적을 차지합니다. 시스템의 기본 규격인 '1개 교실' 크기를 여러 개 합쳐서 <strong>직관적이고 실제 학교 도면 비율과 유사하게 넓은 공간을 표현하기 위함</strong>입니다. 교실 편집 창에서 '빈 공간으로 표시'를 활용하거나 인접한 공간을 시각적으로 연결하여 다양한 크기의 시설을 유연하게 구현할 수 있습니다.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary close-modal w-100">확인</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Add/Edit Building Modal -->
     <div class="modal-overlay" id="buildingModalOverlay">

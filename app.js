@@ -1389,6 +1389,10 @@ elements.clearDataBtn.addEventListener('click', () => {
     }
 });
 
+elements.manualBtn.addEventListener('click', () => {
+    openModal(elements.manualModalOverlay);
+});
+
 // Run Init
 init();
 
