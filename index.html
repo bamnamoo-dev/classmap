@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>스마트 교실 배치도 (Smart Classmap)</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- Ionicons for icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
+
 <body>
     <div class="app-container">
         <!-- Sidebar -->
@@ -22,9 +25,10 @@
             <div class="sidebar-content">
                 <div class="section-title">
                     <h3>건물 관리</h3>
-                    <button id="addBuildingBtn" class="btn btn-sm btn-primary"><ion-icon name="add-outline"></ion-icon> 추가</button>
+                    <button id="addBuildingBtn" class="btn btn-sm btn-primary"><ion-icon name="add-outline"></ion-icon>
+                        추가</button>
                 </div>
-                
+
                 <ul id="buildingList" class="building-list">
                     <!-- Buildings will be listed here dynamically -->
                 </ul>
@@ -35,10 +39,13 @@
                     <h3>데이터 관리</h3>
                 </div>
                 <div class="data-actions">
-                    <button id="exportBtn" class="btn btn-secondary w-100"><ion-icon name="download-outline"></ion-icon> 배치도 내보내기</button>
-                    <button id="importBtn" class="btn btn-secondary w-100 mt-2"><ion-icon name="upload-outline"></ion-icon> 배치도 불러오기</button>
+                    <button id="exportBtn" class="btn btn-secondary w-100"><ion-icon name="download-outline"></ion-icon>
+                        배치도 내보내기</button>
+                    <button id="importBtn" class="btn btn-secondary w-100 mt-2"><ion-icon
+                            name="upload-outline"></ion-icon> 배치도 불러오기</button>
                     <input type="file" id="importInput" accept=".json" style="display: none;">
-                    <button id="clearDataBtn" class="btn btn-danger w-100 mt-2"><ion-icon name="trash-outline"></ion-icon> 전체 초기화</button>
+                    <button id="clearDataBtn" class="btn btn-danger w-100 mt-2"><ion-icon
+                            name="trash-outline"></ion-icon> 전체 초기화</button>
                 </div>
             </div>
         </aside>
@@ -51,7 +58,8 @@
                     <button id="editTitleBtn" class="btn btn-icon"><ion-icon name="pencil-outline"></ion-icon></button>
                 </div>
                 <div class="header-actions">
-                    <button id="printAllBtn" class="btn btn-icon" title="전체 인쇄"><ion-icon name="print-outline"></ion-icon></button>
+                    <button id="printAllBtn" class="btn btn-icon" title="전체 인쇄"><ion-icon
+                            name="print-outline"></ion-icon></button>
                     <div style="width: 1px; height: 24px; background-color: var(--border); margin: 0 0.5rem;"></div>
                     <button id="zoomOutBtn" class="btn btn-icon"><ion-icon name="remove-outline"></ion-icon></button>
                     <span id="zoomLevel">100%</span>
@@ -70,7 +78,7 @@
                 </div>
                 <div class="selection-box" id="selectionBox" style="display: none;"></div>
             </div>
-            
+
             <div class="batch-action-bar" id="batchActionBar" style="display: none;">
                 <div class="batch-info">
                     <ion-icon name="layers-outline"></ion-icon>
@@ -160,7 +168,7 @@
                 <form id="roomForm">
                     <input type="hidden" id="roomBuildingId">
                     <input type="hidden" id="roomId">
-                    
+
                     <div class="modal-section info-section">
                         <div class="room-code-display">
                             <span class="label">고유 번호</span>
@@ -186,30 +194,50 @@
                             <label for="roomUsage">실제 사용실명</label>
                             <input type="text" id="roomUsage" placeholder="예: 1-1, 음악실, 교무실">
                         </div>
-                        
+
                         <div class="form-group mt-3">
                             <label>구분 색상 (선택)</label>
                             <div class="color-picker" id="colorPicker">
-                                <div class="color-option" data-color="#ffffff" style="background-color: #ffffff; border: 1px solid #ddd;" title="기본 (흰색)"></div>
-                                <div class="color-option" data-color="#fef08a" style="background-color: #fef08a;" title="노랑"></div>
-                                <div class="color-option" data-color="#bbf7d0" style="background-color: #bbf7d0;" title="초록"></div>
-                                <div class="color-option" data-color="#bfdbfe" style="background-color: #bfdbfe;" title="파랑"></div>
-                                <div class="color-option" data-color="#fbcfe8" style="background-color: #fbcfe8;" title="분홍"></div>
-                                <div class="color-option" data-color="#e9d5ff" style="background-color: #e9d5ff;" title="보라"></div>
-                                <div class="color-option" data-color="#fed7aa" style="background-color: #fed7aa;" title="주황"></div>
-                                <div class="color-option" data-color="#fecaca" style="background-color: #fecaca;" title="빨강"></div>
-                                <div class="color-option" data-color="#a7f3d0" style="background-color: #a7f3d0;" title="에메랄드"></div>
-                                <div class="color-option" data-color="#99f6e4" style="background-color: #99f6e4;" title="청록"></div>
-                                <div class="color-option" data-color="#a5f3fc" style="background-color: #a5f3fc;" title="시안"></div>
-                                <div class="color-option" data-color="#c7d2fe" style="background-color: #c7d2fe;" title="남색"></div>
-                                <div class="color-option" data-color="#fde047" style="background-color: #fde047;" title="진노랑"></div>
-                                <div class="color-option" data-color="#86efac" style="background-color: #86efac;" title="진초록"></div>
-                                <div class="color-option" data-color="#93c5fd" style="background-color: #93c5fd;" title="진파랑"></div>
-                                <div class="color-option" data-color="#d6d3d1" style="background-color: #d6d3d1;" title="회색"></div>
-                                
-                                <div class="custom-color-wrapper" style="position: relative; width: 32px; height: 32px; border-radius: 50%; overflow: hidden; border: 1px dashed #aaa; cursor: pointer; display: flex; align-items: center; justify-content: center;" title="사용자 지정 색상">
-                                    <ion-icon name="color-palette-outline" style="font-size: 1.2rem; color: #666; pointer-events: none;"></ion-icon>
-                                    <input type="color" id="customColorInput" style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
+                                <div class="color-option" data-color="#ffffff"
+                                    style="background-color: #ffffff; border: 1px solid #ddd;" title="기본 (흰색)"></div>
+                                <div class="color-option" data-color="#fef08a" style="background-color: #fef08a;"
+                                    title="노랑"></div>
+                                <div class="color-option" data-color="#bbf7d0" style="background-color: #bbf7d0;"
+                                    title="초록"></div>
+                                <div class="color-option" data-color="#bfdbfe" style="background-color: #bfdbfe;"
+                                    title="파랑"></div>
+                                <div class="color-option" data-color="#fbcfe8" style="background-color: #fbcfe8;"
+                                    title="분홍"></div>
+                                <div class="color-option" data-color="#e9d5ff" style="background-color: #e9d5ff;"
+                                    title="보라"></div>
+                                <div class="color-option" data-color="#fed7aa" style="background-color: #fed7aa;"
+                                    title="주황"></div>
+                                <div class="color-option" data-color="#fecaca" style="background-color: #fecaca;"
+                                    title="빨강"></div>
+                                <div class="color-option" data-color="#a7f3d0" style="background-color: #a7f3d0;"
+                                    title="에메랄드"></div>
+                                <div class="color-option" data-color="#99f6e4" style="background-color: #99f6e4;"
+                                    title="청록"></div>
+                                <div class="color-option" data-color="#a5f3fc" style="background-color: #a5f3fc;"
+                                    title="시안"></div>
+                                <div class="color-option" data-color="#c7d2fe" style="background-color: #c7d2fe;"
+                                    title="남색"></div>
+                                <div class="color-option" data-color="#fde047" style="background-color: #fde047;"
+                                    title="진노랑"></div>
+                                <div class="color-option" data-color="#86efac" style="background-color: #86efac;"
+                                    title="진초록"></div>
+                                <div class="color-option" data-color="#93c5fd" style="background-color: #93c5fd;"
+                                    title="진파랑"></div>
+                                <div class="color-option" data-color="#d6d3d1" style="background-color: #d6d3d1;"
+                                    title="회색"></div>
+
+                                <div class="custom-color-wrapper"
+                                    style="position: relative; width: 32px; height: 32px; border-radius: 50%; overflow: hidden; border: 1px dashed #aaa; cursor: pointer; display: flex; align-items: center; justify-content: center;"
+                                    title="사용자 지정 색상">
+                                    <ion-icon name="color-palette-outline"
+                                        style="font-size: 1.2rem; color: #666; pointer-events: none;"></ion-icon>
+                                    <input type="color" id="customColorInput"
+                                        style="position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer;">
                                 </div>
                             </div>
                             <input type="hidden" id="roomColor" value="#ffffff">
@@ -219,28 +247,41 @@
                     <div class="modal-section action-section">
                         <label class="section-label">크기 조절 (병합)</label>
                         <div class="grid-4 mb-3">
-                            <button type="button" class="btn btn-outline btn-sm" id="mergeLeftBtn" title="왼쪽 방과 합치기"><ion-icon name="chevron-back-outline"></ion-icon> 좌</button>
-                            <button type="button" class="btn btn-outline btn-sm" id="mergeRightBtn" title="오른쪽 방과 합치기">우 <ion-icon name="chevron-forward-outline"></ion-icon></button>
-                            <button type="button" class="btn btn-outline btn-sm" id="mergeUpBtn" title="위층 방과 합치기"><ion-icon name="chevron-up-outline"></ion-icon> 상</button>
-                            <button type="button" class="btn btn-outline btn-sm" id="mergeDownBtn" title="아래층 방과 합치기"><ion-icon name="chevron-down-outline"></ion-icon> 하</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="mergeLeftBtn"
+                                title="왼쪽 방과 합치기"><ion-icon name="chevron-back-outline"></ion-icon> 좌</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="mergeRightBtn" title="오른쪽 방과 합치기">우
+                                <ion-icon name="chevron-forward-outline"></ion-icon></button>
+                            <button type="button" class="btn btn-outline btn-sm" id="mergeUpBtn"
+                                title="위층 방과 합치기"><ion-icon name="chevron-up-outline"></ion-icon> 상</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="mergeDownBtn"
+                                title="아래층 방과 합치기"><ion-icon name="chevron-down-outline"></ion-icon> 하</button>
                         </div>
-                        
+
                         <label class="section-label">축소 및 분할</label>
                         <div class="grid-2 mb-2">
-                            <button type="button" class="btn btn-outline btn-sm" id="shrinkLeftBtn"><ion-icon name="contract-outline"></ion-icon> 왼쪽 줄이기</button>
-                            <button type="button" class="btn btn-outline btn-sm" id="shrinkRightBtn"><ion-icon name="contract-outline"></ion-icon> 오른쪽 줄이기</button>
-                            <button type="button" class="btn btn-outline btn-sm" id="shrinkUpBtn"><ion-icon name="contract-outline"></ion-icon> 위로 줄이기</button>
-                            <button type="button" class="btn btn-outline btn-sm" id="shrinkDownBtn"><ion-icon name="contract-outline"></ion-icon> 아래로 줄이기</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="shrinkLeftBtn"><ion-icon
+                                    name="contract-outline"></ion-icon> 왼쪽 줄이기</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="shrinkRightBtn"><ion-icon
+                                    name="contract-outline"></ion-icon> 오른쪽 줄이기</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="shrinkUpBtn"><ion-icon
+                                    name="contract-outline"></ion-icon> 위로 줄이기</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="shrinkDownBtn"><ion-icon
+                                    name="contract-outline"></ion-icon> 아래로 줄이기</button>
                         </div>
                         <div class="mb-3">
-                            <button type="button" class="btn btn-outline btn-sm w-100" id="splitRoomBtn" style="width: 100%;"><ion-icon name="git-branch-outline"></ion-icon> 세로로 반 나누기</button>
+                            <button type="button" class="btn btn-outline btn-sm w-100" id="splitRoomBtn"
+                                style="width: 100%;"><ion-icon name="git-branch-outline"></ion-icon> 세로로 반 나누기</button>
                         </div>
 
                         <label class="section-label text-danger">위험 작업 및 복구</label>
                         <div class="grid-2">
-                            <button type="button" class="btn btn-danger-outline btn-sm" id="resetRoomBtn"><ion-icon name="refresh-outline"></ion-icon> 원래대로</button>
-                            <button type="button" class="btn btn-danger-outline btn-sm" id="deleteRoomBtn"><ion-icon name="trash-outline"></ion-icon> 현재 칸 삭제</button>
-                            <button type="button" class="btn btn-danger-outline btn-sm" id="deleteRightRoomBtn" style="grid-column: span 2;"><ion-icon name="cut-outline"></ion-icon> 우측 유령칸 잘라내기</button>
+                            <button type="button" class="btn btn-danger-outline btn-sm" id="resetRoomBtn"><ion-icon
+                                    name="refresh-outline"></ion-icon> 원래대로</button>
+                            <button type="button" class="btn btn-danger-outline btn-sm" id="deleteRoomBtn"><ion-icon
+                                    name="trash-outline"></ion-icon> 현재 칸 삭제</button>
+                            <button type="button" class="btn btn-danger-outline btn-sm" id="deleteRightRoomBtn"
+                                style="grid-column: span 2;"><ion-icon name="cut-outline"></ion-icon> 우측 유령칸
+                                잘라내기</button>
                         </div>
                     </div>
                 </form>
@@ -274,4 +315,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>

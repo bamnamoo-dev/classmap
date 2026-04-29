@@ -460,6 +460,7 @@ function renderCanvas() {
         bEl.style.top = building.y + 'px';
         
         let floorsHtml = '';
+        let stateModified = false;
         
         // Render floors from top to bottom
         for (let floor = building.floors; floor >= 1; floor--) {
@@ -477,11 +478,19 @@ function renderCanvas() {
                     const topPhysicalCode = generatePhysicalCode(building, floor, topRoomIdx);
                     const bottomPhysicalCode = generatePhysicalCode(building, floor, bottomRoomIdx);
                     
-                    if (!state.rooms[topRoomId]) state.rooms[topRoomId] = { usage: '', color: '#ffffff', code: topPhysicalCode };
-                    else state.rooms[topRoomId].code = topPhysicalCode;
+                    if (!state.rooms[topRoomId]) {
+                        state.rooms[topRoomId] = { usage: '', color: '#ffffff', code: topPhysicalCode, span: 1, isBlank: false };
+                        stateModified = true;
+                    } else {
+                        state.rooms[topRoomId].code = topPhysicalCode;
+                    }
                     
-                    if (!state.rooms[bottomRoomId]) state.rooms[bottomRoomId] = { usage: '', color: '#ffffff', code: bottomPhysicalCode };
-                    else state.rooms[bottomRoomId].code = bottomPhysicalCode;
+                    if (!state.rooms[bottomRoomId]) {
+                        state.rooms[bottomRoomId] = { usage: '', color: '#ffffff', code: bottomPhysicalCode, span: 1, isBlank: false };
+                        stateModified = true;
+                    } else {
+                        state.rooms[bottomRoomId].code = bottomPhysicalCode;
+                    }
                     
                     topRoomsHtml += getRoomHtml(topRoomId, topPhysicalCode);
                     bottomRoomsHtml += getRoomHtml(bottomRoomId, bottomPhysicalCode);
@@ -504,7 +513,8 @@ function renderCanvas() {
                     const physicalCode = generatePhysicalCode(building, floor, roomIdx);
                     
                     if (!state.rooms[roomId]) {
-                        state.rooms[roomId] = { usage: '', color: '#ffffff', code: physicalCode };
+                        state.rooms[roomId] = { usage: '', color: '#ffffff', code: physicalCode, span: 1, isBlank: false };
+                        stateModified = true;
                     } else {
                         state.rooms[roomId].code = physicalCode;
                     }
@@ -586,6 +596,10 @@ function renderCanvas() {
             smartPrint('single', bEl);
         });
     });
+
+    if (stateModified) {
+        saveState();
+    }
 }
 
 function generatePhysicalCode(building, floor, roomIdx) {
@@ -820,6 +834,20 @@ elements.roomUsageInput.addEventListener('keydown', (e) => {
         elements.saveRoomBtn.click();
     }
 });
+
+if (elements.buildingForm) {
+    elements.buildingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        elements.saveBuildingBtn.click();
+    });
+}
+
+if (elements.roomForm) {
+    elements.roomForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        elements.saveRoomBtn.click();
+    });
+}
 
 function getVerticalTargetRoomId(roomId, direction) {
     const { bIdAndFloor, building, baseRoomIdx } = getRoomContext(roomId);
