@@ -450,6 +450,8 @@ function renderCanvas() {
         return;
     }
 
+    let stateModified = false;
+
     state.buildings.forEach((building, idx) => {
         if (building.x === undefined) building.x = 50 + (idx * 50);
         if (building.y === undefined) building.y = 50 + (idx * 50);
@@ -460,7 +462,6 @@ function renderCanvas() {
         bEl.style.top = building.y + 'px';
         
         let floorsHtml = '';
-        let stateModified = false;
         
         // Render floors from top to bottom
         for (let floor = building.floors; floor >= 1; floor--) {
