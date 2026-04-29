@@ -73,6 +73,8 @@ const elements = {
     importBtn: document.getElementById('importBtn'),
     importInput: document.getElementById('importInput'),
     clearDataBtn: document.getElementById('clearDataBtn'),
+    manualBtn: document.getElementById('manualBtn'),
+    manualModalOverlay: document.getElementById('manualModalOverlay'),
 };
 
 let currentZoom = 1;
