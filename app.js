@@ -1381,7 +1381,8 @@ elements.clearDataBtn.addEventListener('click', () => {
         state = {
             schoolTitle: "우리학교 교실 배치도",
             buildings: [],
-            rooms: {}
+            rooms: {},
+            selectedRooms: []
         };
         saveState();
         renderAll();
